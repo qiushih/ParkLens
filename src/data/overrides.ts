@@ -106,8 +106,13 @@ const CIVIC_DISTRICT: NonNullable<Override['patch']> = {
       ),
     ),
   ],
-  openHours: [at([1, 2, 3, 4], '06:00', '21:00'), at([5, 6], '06:00', '18:00')],
-  notes: ['Theatre parking $10.00', 'Outside open hours, only monthly permit holders can enter'],
+  // Sunday parking is listed as free but no Sunday hours are given, so hours stay unstated.
+  openHours: null,
+  notes: [
+    'Theatre parking $10.00',
+    'Open Monday to Thursday 6 a.m. to 9 p.m., Friday and Saturday 6 a.m. to 6 p.m.; Sunday parking is listed as free, with no Sunday hours',
+    'Outside open hours, only monthly permit holders can enter',
+  ],
 };
 
 /** Open data lists these downtown segments as metered with no rate. */
@@ -137,7 +142,7 @@ export const OVERRIDES: Readonly<Record<string, Override>> = {
   'kitchener-lot-2049': kitchener({
     name: 'Ontario Street South (Lot 9)',
     rules: weekdayLot('17:00', null, 120),
-    openHours: [at(WEEKDAYS, '08:00', '17:00')],
+    openHours: null,
     notes: ['The City lists weekend parking as free, but opening hours as Monday to Friday, 8 a.m. to 5 p.m.'],
   }),
   'kitchener-lot-2152': kitchener({
@@ -181,8 +186,9 @@ export const OVERRIDES: Readonly<Record<string, Override>> = {
   'kitchener-lot-3130': kitchener({
     name: 'Charles & Benton Garage',
     rules: [GARAGE_EVENING, free(at([0])), GARAGE_DAY],
-    openHours: [at(MON_SAT)],
-    notes: [GARAGE_EVENING_NOTE],
+    // The City lists hours as Monday to Saturday yet Sunday parking as free, so hours stay unstated.
+    openHours: null,
+    notes: [GARAGE_EVENING_NOTE, 'The City lists hours as Monday to Saturday, 24 hours a day, and Sunday parking as free'],
   }),
   'kitchener-lot-1989': kitchener({
     name: 'City Hall Garage',
@@ -201,8 +207,9 @@ export const OVERRIDES: Readonly<Record<string, Override>> = {
   'kitchener-lot-2023': kitchener({
     name: 'Duke & Ontario Garage',
     rules: [GARAGE_EVENING, free(at([0])), GARAGE_DAY],
-    openHours: [at(MON_SAT)],
-    notes: [GARAGE_EVENING_NOTE],
+    // The City lists hours as Monday to Saturday yet Sunday parking as free, so hours stay unstated.
+    openHours: null,
+    notes: [GARAGE_EVENING_NOTE, 'The City lists hours as Monday to Saturday, 24 hours a day, and Sunday parking as free'],
   }),
 
   // Street parking

@@ -1,5 +1,10 @@
+import { PARKING_DATASET } from '../data/bundled';
+import { buildNearbyView } from '../results/view';
 import { resolveViewState } from '../shared/view-state';
 import { renderView } from './render';
+
+/** Statuses depend on the time of day, so re-check periodically; unchanged views aren't re-rendered. */
+const CLOCK_REFRESH_MS = 30_000;
 
 async function main(): Promise<void> {
   const root = document.getElementById('app');
@@ -19,11 +24,13 @@ async function main(): Promise<void> {
     if (request !== latestRequest) return;
 
     const state = resolveViewState(tab?.url);
-    const key = JSON.stringify(state);
-    // Maps rewrites the URL on every pan; only re-render (and re-announce) real changes.
+    const nearby = state.kind === 'in-area' ? buildNearbyView(PARKING_DATASET, state.destination, new Date()) : null;
+    const key = JSON.stringify([state, nearby]);
+    // Maps rewrites the URL on every pan; only re-render (and re-announce) real changes. This also
+    // keeps expanded details open across clock refreshes that change nothing.
     if (key === renderedKey) return;
     renderedKey = key;
-    root.replaceChildren(renderView(state));
+    root.replaceChildren(renderView(state, nearby));
   };
 
   chrome.tabs.onActivated.addListener((info) => {
@@ -33,6 +40,7 @@ async function main(): Promise<void> {
     const relevant = changeInfo.url !== undefined || changeInfo.status !== undefined;
     if (relevant && tab.active && tab.windowId === windowId) void refresh();
   });
+  setInterval(() => void refresh(), CLOCK_REFRESH_MS);
 
   await refresh();
 }

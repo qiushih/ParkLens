@@ -1,5 +1,6 @@
 import { normalizeKitchenerLot, normalizeKitchenerStreet, type KitchenerLotProps, type KitchenerStreetProps } from './kitchener.ts';
 import { OVERRIDES, type Override } from './overrides.ts';
+import { isWithinWindow, minutesOf } from './schedule.ts';
 import { DATASETS } from './sources.ts';
 import type { Excluded, ParkingDataset, ParkingOption, RawLayer } from './types.ts';
 import { normalizeWaterlooLot, type WaterlooLotProps } from './waterloo.ts';
@@ -72,6 +73,18 @@ export function buildDataset(
     for (const window of windows) {
       if (window.start === window.end || window.days.length === 0) {
         errors.push(`${id} (${option.name}): empty time window ${JSON.stringify(window)}`);
+      }
+    }
+    // A rule that starts while the facility is listed as closed means the sources contradict each other.
+    const openHours = option.openHours;
+    if (openHours) {
+      for (const rule of option.rules) {
+        if (!rule.when) continue;
+        const start = minutesOf(rule.when.start);
+        const closedDays = rule.when.days.filter((day) => !openHours.some((window) => isWithinWindow(window, day, start)));
+        if (closedDays.length > 0) {
+          errors.push(`${id} (${option.name}): rule starting ${rule.when.start} on days ${closedDays.join(',')} is outside open hours`);
+        }
       }
     }
     if (option.rulesStatus === 'unverified' && option.rules.some((rule) => rule.price?.kind === 'free')) {

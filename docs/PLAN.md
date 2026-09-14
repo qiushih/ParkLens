@@ -61,6 +61,12 @@ This must always be shown as *"typical rule — check posted signs"*, never as f
   - The City's page mentions 300+ free two-hour downtown spaces but names no streets.
   - They are kept with `rulesStatus: 'unverified'` and price `unknown`, and must not rank as confirmed free parking until there is street-specific evidence.
 - **Waterloo 2-hour-free lots allow longer stays** through HonkMobile ($3.50/hour). The City doesn't say whether the first 2 hours are then charged, so the charge after 2 hours is recorded as unconfirmed (`amount: null`).
+- **Open hours stay unstated where the City contradicts itself** (M3). Charles & Benton, Duke & Ontario, Civic District and Lot 9 list hours that exclude days the City also calls free. Their hours are kept as notes, and the build fails if any rule starts outside stated open hours.
+- **M3 results use the current time only.**
+  - Statuses are for "now" in America/Toronto.
+  - Ordering: available, then unknown, then permit-only/facility-visitors, then closed; nearest first within each group.
+  - Up to 8 results, plus up to 5 unverified street segments in a separate collapsed section.
+  - Arrival time and stay length come in M4.
 - Rules for times the cities don't mention are left unknown, not assumed free. Examples: weekday evenings at Kitchener surface lots, and 3–6 a.m. in Waterloo lots.
 - Kitchener unpaid street and community-centre records still use open-data rules; some haven't been edited since 2017.
 

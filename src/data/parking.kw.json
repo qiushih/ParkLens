@@ -484,22 +484,10 @@
         }
       ],
       "rulesStatus": "stated",
-      "openHours": [
-        {
-          "days": [
-            1,
-            2,
-            3,
-            4,
-            5,
-            6
-          ],
-          "start": "00:00",
-          "end": "24:00"
-        }
-      ],
+      "openHours": null,
       "notes": [
-        "Evening maximum $6.25, Monday to Saturday, 5 p.m. to 5:59 a.m."
+        "Evening maximum $6.25, Monday to Saturday, 5 p.m. to 5:59 a.m.",
+        "The City lists hours as Monday to Saturday, 24 hours a day, and Sunday parking as free"
       ],
       "source": {
         "dataset": "kitchener-public-lots",
@@ -570,19 +558,7 @@
         }
       ],
       "rulesStatus": "stated",
-      "openHours": [
-        {
-          "days": [
-            1,
-            2,
-            3,
-            4,
-            5
-          ],
-          "start": "08:00",
-          "end": "17:00"
-        }
-      ],
+      "openHours": null,
       "notes": [
         "The City lists weekend parking as free, but opening hours as Monday to Friday, 8 a.m. to 5 p.m."
       ],
@@ -1164,22 +1140,10 @@
         }
       ],
       "rulesStatus": "stated",
-      "openHours": [
-        {
-          "days": [
-            1,
-            2,
-            3,
-            4,
-            5,
-            6
-          ],
-          "start": "00:00",
-          "end": "24:00"
-        }
-      ],
+      "openHours": null,
       "notes": [
-        "Evening maximum $6.25, Monday to Saturday, 5 p.m. to 5:59 a.m."
+        "Evening maximum $6.25, Monday to Saturday, 5 p.m. to 5:59 a.m.",
+        "The City lists hours as Monday to Saturday, 24 hours a day, and Sunday parking as free"
       ],
       "source": {
         "dataset": "kitchener-public-lots",
@@ -1802,28 +1766,10 @@
         }
       ],
       "rulesStatus": "stated",
-      "openHours": [
-        {
-          "days": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "start": "06:00",
-          "end": "21:00"
-        },
-        {
-          "days": [
-            5,
-            6
-          ],
-          "start": "06:00",
-          "end": "18:00"
-        }
-      ],
+      "openHours": null,
       "notes": [
         "Theatre parking $10.00",
+        "Open Monday to Thursday 6 a.m. to 9 p.m., Friday and Saturday 6 a.m. to 6 p.m.; Sunday parking is listed as free, with no Sunday hours",
         "Outside open hours, only monthly permit holders can enter"
       ],
       "source": {
@@ -1902,28 +1848,10 @@
         }
       ],
       "rulesStatus": "stated",
-      "openHours": [
-        {
-          "days": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "start": "06:00",
-          "end": "21:00"
-        },
-        {
-          "days": [
-            5,
-            6
-          ],
-          "start": "06:00",
-          "end": "18:00"
-        }
-      ],
+      "openHours": null,
       "notes": [
         "Theatre parking $10.00",
+        "Open Monday to Thursday 6 a.m. to 9 p.m., Friday and Saturday 6 a.m. to 6 p.m.; Sunday parking is listed as free, with no Sunday hours",
         "Outside open hours, only monthly permit holders can enter"
       ],
       "source": {
