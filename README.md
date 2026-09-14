@@ -2,7 +2,7 @@
 
 A Chrome extension that shows city parking near the place you're viewing in Google Maps, in a side panel. Coverage: **Kitchener and Waterloo, ON**.
 
-> **Status:** milestones M0–M1 are done (extension scaffold and Google Maps destination detection). Parking results come in later milestones. See [docs/PLAN.md](docs/PLAN.md).
+> **Status:** milestones M0–M3 are done: the scaffold, Google Maps destination detection, the parking data pipeline, and nearby results for the current time in the side panel. Duration and arrival-time controls come next (M4). See [docs/PLAN.md](docs/PLAN.md).
 
 ## How it works
 
