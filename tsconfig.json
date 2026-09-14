@@ -14,8 +14,10 @@
     "verbatimModuleSyntax": true,
     "resolveJsonModule": true,
     "allowImportingTsExtensions": true,
+    "erasableSyntaxOnly": true,
     "skipLibCheck": true,
     "noEmit": true
   },
-  "include": ["src", "manifest.config.ts", "vite.config.ts", "vitest.config.ts"]
+  "include": ["src", "manifest.config.ts", "vite.config.ts"],
+  "exclude": ["src/**/*.test.ts"]
 }

@@ -40,6 +40,27 @@ Then load the extension:
 | `npm test` | Unit tests (Vitest) |
 | `npm run icons` | Regenerate the PNG icons in `src/assets/icons/` |
 
+## Parking data
+
+City-run parking from open data published by the City of Kitchener and the City of Waterloo, bundled as `src/data/parking.kw.json`. Nothing is fetched at runtime.
+
+| Script | What it does |
+|---|---|
+| `npm run data:fetch` | Download the source layers into `data/raw/` |
+| `npm run data:build` | Normalize `data/raw/` into `src/data/parking.kw.json` and write `data/REPORT.md` |
+| `npm run data` | Both |
+
+Several open-data records have out-of-date rates. Current rates and hours come from the cities' parking pages, as overrides in `src/data/overrides.ts`; each cites its source page and the date checked.
+
+The build fails if any record can't be parsed and has no override, or if an override matches no record. A test also fails if `parking.kw.json` isn't up to date with the parsers and overrides.
+
+To refresh:
+1. Run `npm run data`.
+2. Re-check override sources whose `checked` date is old.
+3. Review the diff and `data/REPORT.md`.
+
+Contains information licensed under the Open Government Licence - The Corporation of the City of Kitchener. Contains information provided by the City of Waterloo under licence.
+
 ## Project layout
 
 ```
