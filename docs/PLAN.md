@@ -50,6 +50,20 @@ This must always be shown as *"typical rule — check posted signs"*, never as f
 
 ---
 
+### Known data gaps (M2, 2026-09-14)
+
+- These city-run lots are on the cities' parking pages but **not in the open data**, so there's no location for them:
+  - Kitchener Rotary (Lot 13), Scott Street (Lot 21) and King Street East (Lot 23)
+  - Waterloo's Marsland Centre Lot
+  - Adding them needs a hand-entered position.
+- **45 downtown Kitchener street segments have unverified rules.**
+  - The open data lists them as metered with no rate.
+  - The City's page mentions 300+ free two-hour downtown spaces but names no streets.
+  - They are kept with `rulesStatus: 'unverified'` and price `unknown`, and must not rank as confirmed free parking until there is street-specific evidence.
+- **Waterloo 2-hour-free lots allow longer stays** through HonkMobile ($3.50/hour). The City doesn't say whether the first 2 hours are then charged, so the charge after 2 hours is recorded as unconfirmed (`amount: null`).
+- Rules for times the cities don't mention are left unknown, not assumed free. Examples: weekday evenings at Kitchener surface lots, and 3–6 a.m. in Waterloo lots.
+- Kitchener unpaid street and community-centre records still use open-data rules; some haven't been edited since 2017.
+
 ## 2. Architecture
 
 ```
@@ -194,4 +208,9 @@ Possible later work: a map preview in the panel, live occupancy (if the cities e
 2. **Straight-line walk estimates.** Always labelled as approximate. No routing API.
 3. **Built to Chrome Web Store quality.** Minimal permissions, privacy policy, icons, tests and lint. Publishing comes later.
 4. **The default 3-hour street rule is a general informational note, never a parking result.** It must tell users to check posted signs.
+6. **Open data for locations, city web pages for current rules** (decided during M2).
+   - The open data's rates are years out of date: Waterloo's lots were last edited in 2018, and most Kitchener lot rates date from 2019.
+   - Locations, names and space counts still come from open data.
+   - Rates and hours for paid Kitchener lots and garages, and for all Waterloo uptown lots, come from reviewed overrides in `src/data/overrides.ts`. Each cites the city page it was copied from and the date checked.
+   - `data/REPORT.md` lists every override and exclusion.
 5. **No content script** (decided during M1). Host permissions scoped to Google Maps URLs let the extension read those tabs' URLs through the `tabs` API. Nothing is injected into Google's page. See §2.1.
