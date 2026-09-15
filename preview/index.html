@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Park Lens panel preview</title>
+    <link rel="stylesheet" href="/src/sidepanel/panel.css" />
+    <style>
+      /* Preview chrome only; the panel itself uses panel.css unchanged. */
+      body {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        gap: 24px;
+        padding: 24px;
+        background: var(--surface);
+      }
+      .preview-toolbar {
+        display: grid;
+        gap: 8px;
+        max-width: 320px;
+      }
+      .preview-toolbar h1 {
+        margin: 0;
+        font-size: 16px;
+      }
+      .preview-toolbar select {
+        width: 100%;
+        padding: 6px;
+        font: inherit;
+      }
+      .preview-frame {
+        width: 380px;
+        max-width: 100%;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: var(--bg);
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <aside class="preview-toolbar">
+      <h1>Park Lens side panel preview</h1>
+      <label class="field">
+        <span>Simulated active tab</span>
+        <select id="preview-place"></select>
+      </label>
+      <p class="fineprint">
+        Local development preview. The real panel code runs here with simulated Chrome tab APIs; load <code>dist/</code> in
+        Chrome to use the actual extension.
+      </p>
+    </aside>
+
+    <div class="preview-frame">
+      <!-- Same structure as src/sidepanel/index.html. -->
+      <header class="brand">
+        <img src="/src/assets/icons/icon-32.png" alt="" width="20" height="20" />
+        <span>Park Lens</span>
+      </header>
+      <main>
+        <div id="destination"></div>
+        <div id="controls" hidden></div>
+        <div id="app" aria-live="polite"></div>
+      </main>
+    </div>
+
+    <script type="module" src="/preview/preview.ts"></script>
+  </body>
+</html>

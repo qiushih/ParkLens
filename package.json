@@ -9,6 +9,7 @@
   },
   "scripts": {
     "dev": "vite",
+    "preview:panel": "vite --config vite.preview.config.ts",
     "build": "npm run typecheck && vite build",
     "typecheck": "tsc && tsc -p tsconfig.node.json",
     "data": "npm run data:fetch && npm run data:build",
