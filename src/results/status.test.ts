@@ -2,7 +2,8 @@ import { describe, expect, it } from 'vitest';
 import { PARKING_DATASET } from '../data/bundled';
 import { minutesOf } from '../data/schedule';
 import type { ParkingOption, Price, Weekday } from '../data/types';
-import { describePrice, formatDuration, statusAt } from './status';
+import { formatDuration } from './format';
+import { describePrice, statusAt } from './status';
 
 const [SUN, MON, SAT] = [0, 1, 6] as const;
 
