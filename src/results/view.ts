@@ -58,6 +58,8 @@ export interface NearbyView {
   unverified: ResultItem[];
   /** General street parking rules for the nearby cities: an informational note, never a result. */
   streetRules: StreetRulesNote[];
+  /** When rates and rules were last checked against city websites (the oldest check), e.g. "Sep 2026". */
+  dataChecked: string | null;
   attributions: string[];
 }
 
@@ -81,12 +83,15 @@ export function buildNearbyView(
     nearby.filter(({ option }) => option.rulesStatus === 'unverified').map(({ option, walkMin }) => toItem(option, walkMin, stay)),
   ).slice(0, MAX_UNVERIFIED);
 
+  const streetRules = streetRulesFor(new Set(nearby.map(({ option }) => option.city)));
+
   return {
     stayLabel,
     maxWalkMin: MAX_WALK_MINUTES,
     results,
     unverified,
-    streetRules: streetRulesFor(new Set(nearby.map(({ option }) => option.city))),
+    streetRules,
+    dataChecked: oldestCheck(dataset, streetRules),
     attributions: [...new Set(dataset.sources.map((source) => source.attribution))],
   };
 }
@@ -139,6 +144,15 @@ function costPenalty({ cost }: StayEvaluation): number {
     case 'unknown':
       return UNKNOWN_COST_PENALTY_MIN;
   }
+}
+
+/** The oldest date any rate or rule was checked against a city website, so the footer never overstates freshness. */
+function oldestCheck(dataset: ParkingDataset, streetRules: readonly StreetRulesNote[]): string | null {
+  const checked = [
+    ...dataset.options.flatMap((option) => (option.override?.sourceUrl ? [option.override.checked] : [])),
+    ...streetRules.map((note) => note.checked),
+  ].sort();
+  return checked[0] ? formatMonthYear(checked[0]) : null;
 }
 
 function describeSource(option: ParkingOption): string {

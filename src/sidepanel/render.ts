@@ -1,6 +1,7 @@
 import { formatMonthYear } from '../results/format';
 import { STREET_RULES_DISCLAIMER, type StreetRulesNote } from '../results/street-rules';
 import type { NearbyView, ResultItem } from '../results/view';
+import { REPORT_PROBLEM_URL } from '../shared/links';
 import type { Destination } from '../shared/maps-url';
 import { SERVICE_AREA } from '../shared/service-area';
 import type { ViewState } from '../shared/view-state';
@@ -11,6 +12,8 @@ export interface RenderedView {
   header: HTMLElement | null;
   body: HTMLElement;
 }
+
+const DISCLAIMER = 'Not affiliated with or endorsed by Google, the City of Kitchener or the City of Waterloo.';
 
 export function renderView(state: ViewState, nearby: NearbyView | null): RenderedView {
   switch (state.kind) {
@@ -34,6 +37,37 @@ export function renderView(state: ViewState, nearby: NearbyView | null): Rendere
         header: destinationHeader('Parking near', state.destination),
         body: nearby ? renderNearby(nearby) : h('div', null),
       };
+  }
+}
+
+/** Shown instead of a blank panel if anything goes wrong while building the view. */
+export function renderError(): RenderedView {
+  return {
+    header: null,
+    body: h(
+      'section',
+      'view view--empty',
+      h('h1', 'title', "Couldn't show parking"),
+      h('p', 'muted', 'Something went wrong. Try selecting the place in Google Maps again.'),
+      reportLink(),
+    ),
+  };
+}
+
+/** A short line for screen readers, so they don't re-read the whole panel on every change. */
+export function announcementFor(state: ViewState, nearby: NearbyView | null): string {
+  switch (state.kind) {
+    case 'no-maps-tab':
+      return 'Open Google Maps to find parking.';
+    case 'no-destination':
+      return 'Select a place in Google Maps to see parking nearby.';
+    case 'outside-area':
+      return `${state.destination.name ?? 'This place'} is outside ${SERVICE_AREA.label}.`;
+    case 'in-area': {
+      const count = nearby?.results.length ?? 0;
+      const place = state.destination.name ?? 'the selected place';
+      return `${String(count)} parking ${count === 1 ? 'option' : 'options'} near ${place}${nearby ? `, for a ${nearby.stayLabel}` : ''}`;
+    }
   }
 }
 
@@ -62,7 +96,11 @@ function renderNearby(view: NearbyView): HTMLElement {
     h('p', 'fineprint', view.stayLabel.endsWith('.') ? `For a ${view.stayLabel}` : `For a ${view.stayLabel}.`),
     view.results.length > 0
       ? h('ol', 'results', ...view.results.map(renderItem))
-      : h('p', 'placeholder', `No city-run parking found within about a ${String(view.maxWalkMin)}-minute walk.`),
+      : h(
+          'p',
+          'placeholder',
+          `No city-run parking found within about a ${String(view.maxWalkMin)}-minute walk. Park Lens only includes parking run by the cities of Kitchener and Waterloo.`,
+        ),
     unverifiedCount > 0
       ? h(
           'details',
@@ -76,7 +114,12 @@ function renderNearby(view: NearbyView): HTMLElement {
       'footer',
       'fineprint footer',
       h('p', null, 'Walk times are approximate, based on straight-line distance. Costs are estimates from city rates. City-run parking only. Always check posted signs.'),
+      view.dataChecked
+        ? h('p', null, `Rates and rules were checked against city websites in ${view.dataChecked}. They can change without notice.`)
+        : null,
       ...view.attributions.map((attribution) => h('p', null, `${attribution}.`)),
+      h('p', null, DISCLAIMER),
+      reportLink(),
     ),
   );
 }
@@ -105,6 +148,10 @@ function renderStreetRules(notes: readonly StreetRulesNote[]): HTMLElement {
   );
   section.setAttribute('aria-label', title);
   return section;
+}
+
+function reportLink(): HTMLElement | null {
+  return REPORT_PROBLEM_URL ? h('p', 'report', link(REPORT_PROBLEM_URL, 'Report a problem')) : null;
 }
 
 function link(href: string, text: string): HTMLAnchorElement {

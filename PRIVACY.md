@@ -2,24 +2,34 @@
 
 _Last updated: 2026-09-14_
 
-Park Lens does not collect, store, sell, or transmit any personal data.
+Park Lens does not collect, sell, or transmit any personal data. It has no server, no accounts, no analytics, and no advertising.
 
-## What the extension accesses
+## What the extension reads
 
-- **Google Maps page addresses only.** Park Lens has permission to read the address (URL) of tabs open on `www.google.com/maps` and `www.google.ca/maps`. It uses the place name and coordinates in that address to work out which destination you're viewing. It cannot see the address or content of any other website.
-- **No page content.** Park Lens does not read, modify, or inject anything into Google Maps pages.
+- **Google Maps page addresses only.** Park Lens can read the address (URL) of tabs open on `www.google.com/maps` and `www.google.ca/maps`. From that address it takes the place name and coordinates to work out which destination you're viewing. It cannot see the address of any other website.
+- **No page content.** Park Lens does not read, change, or add anything to Google Maps pages.
 
-## What happens to that information
+That information is processed on your device, inside the extension, and is not saved or sent anywhere.
 
-- It is processed **entirely on your device**, inside the extension, and discarded when you move on.
-- It is **not sent to any server**, including ours; Park Lens has no server.
-- It is **not stored** in browser storage or anywhere else.
-- There are no analytics, tracking, advertising, or third-party scripts.
+## What the extension stores
 
-## Parking information
+- **Your last stay length** (for example "2 hr"), so the panel remembers it next time. It is kept in the extension's local storage on your device, never sent anywhere, and removed when you uninstall Park Lens.
 
-Parking information shown by the extension comes from public open data published by the City of Kitchener and the City of Waterloo, bundled with the extension. Showing it requires no network request that includes your location.
+Nothing else is stored. Arrival times you pick are not saved.
+
+## Network use
+
+- Park Lens makes no network requests. The parking information is bundled with the extension.
+- Parking information comes from open data published by the City of Kitchener and the City of Waterloo, and from their parking web pages.
+
+## Links you choose to open
+
+The panel includes links to city parking pages and a "Report a problem" form. They open only when you click them, in a new tab. Those websites have their own privacy policies. Anything you type into the problem-report form is sent to that form's provider, not to the extension.
 
 ## Changes
 
-If a future version needs to handle data differently (for example, fetching fresher parking data), this policy will be updated before that version is released.
+If a future version handles data differently, this policy will be updated before that version is released.
+
+## Contact
+
+Use the "Report a problem" link in the Park Lens panel.
