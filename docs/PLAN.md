@@ -62,11 +62,22 @@ This must always be shown as *"typical rule — check posted signs"*, never as f
   - They are kept with `rulesStatus: 'unverified'` and price `unknown`, and must not rank as confirmed free parking until there is street-specific evidence.
 - **Waterloo 2-hour-free lots allow longer stays** through HonkMobile ($3.50/hour). The City doesn't say whether the first 2 hours are then charged, so the charge after 2 hours is recorded as unconfirmed (`amount: null`).
 - **Open hours stay unstated where the City contradicts itself** (M3). Charles & Benton, Duke & Ontario, Civic District and Lot 9 list hours that exclude days the City also calls free. Their hours are kept as notes, and the build fails if any rule starts outside stated open hours.
-- **M3 results use the current time only.**
-  - Statuses are for "now" in America/Toronto.
-  - Ordering: available, then unknown, then permit-only/facility-visitors, then closed; nearest first within each group.
-  - Up to 8 results, plus up to 5 unverified street segments in a separate collapsed section.
-  - Arrival time and stay length come in M4.
+- **M5 street parking rules note** (`src/results/street-rules.ts`).
+  - General rules per city, worded from each city's bylaw pages (checked 2026-09-14): the 3-hour limit, overnight 2:30–6 a.m. rules, snow events, and Kitchener's downtown 5-hour re-parking rule.
+  - Shown below the results as a notice, never as a parking result. It leads with "This isn't a parking spot… always check the signs where you park."
+  - The city comes from the parking found near the destination. When that parking spans both cities, or there is none, both cities' rules are shown rather than guessing.
+  - Not date-aware yet: Kitchener's December–March overnight rule is shown with its dates rather than highlighted for winter stays.
+- **M4 stay planning** (`src/results/stay.ts`, `view.ts`).
+  - **Controls:** stay length (30 min, 1, 2, 3, 4 or 8 hr; the last choice is remembered on this device) and arrival (now, or a day in the next week and a time). Times are always Kitchener–Waterloo local.
+  - **Evaluation:** the stay is split wherever the applicable rule changes, walking minute by minute, so windows past midnight and closing times are handled.
+  - **Outcomes:** fits, partial (with the time you must leave: max stay, permit-only starts, or closing), unknown (from when rules stop being listed), facility visitors only, or not allowed on arrival.
+  - **Cost:** priced per stretch from price steps, capped at the daily max.
+    - Exact when one paid rule covers the stay.
+    - An **estimate** when the stay crosses more than one paid rule (e.g. a garage's day rate into its evening cap). Each stretch is priced separately, so it may differ from what a garage actually charges.
+    - **Unconfirmed** whenever any part has an unknown amount.
+  - **Ranking:** by outcome, then a score of walk minutes, plus 2 minutes per dollar, plus 6 minutes for an unconfirmed cost, plus up to 10 minutes for the share of the stay a partial fit doesn't cover. Nearest first on ties.
+  - Up to 8 results, plus up to 5 unverified street segments in a separate collapsed section. Results that read identically for the stay show once.
+  - **Not modelled:** daily maximums resetting at midnight on stays past midnight, holidays, and snow events.
 - Rules for times the cities don't mention are left unknown, not assumed free. Examples: weekday evenings at Kitchener surface lots, and 3–6 a.m. in Waterloo lots.
 - Kitchener unpaid street and community-centre records still use open-data rules; some haven't been edited since 2017.
 

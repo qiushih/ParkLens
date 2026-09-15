@@ -2,7 +2,7 @@
 
 A Chrome extension that shows city parking near the place you're viewing in Google Maps, in a side panel. Coverage: **Kitchener and Waterloo, ON**.
 
-> **Status:** milestones M0–M3 are done: the scaffold, Google Maps destination detection, the parking data pipeline, and nearby results for the current time in the side panel. Duration and arrival-time controls come next (M4). See [docs/PLAN.md](docs/PLAN.md).
+> **Status:** milestones M0–M4 are done: the scaffold, Google Maps destination detection, the parking data pipeline, nearby results, planning by stay length and arrival time with cost estimates, and a general street parking rules note. Web Store polish (M6) comes next. See [docs/PLAN.md](docs/PLAN.md).
 
 ## How it works
 
@@ -36,6 +36,7 @@ Then load the extension:
 |---|---|
 | `npm run dev` | Development build with hot reload into `dist/` |
 | `npm run build` | Type-check and production build into `dist/` |
+| `npm run preview:panel` | Side panel on http://localhost:5174/preview/ with simulated Chrome tab APIs (not bundled into the extension) |
 | `npm run check` | Type-check, lint, and unit tests |
 | `npm test` | Unit tests (Vitest) |
 | `npm run icons` | Regenerate the PNG icons in `src/assets/icons/` |
