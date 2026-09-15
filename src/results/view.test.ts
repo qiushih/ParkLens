@@ -102,6 +102,10 @@ describe('buildNearbyView (bundled dataset)', () => {
     expect(view(KITCHENER_CITY_HALL, stay(MON, '10:00', 60)).attributions).toHaveLength(2);
   });
 
+  it('reports when rates and rules were last checked', () => {
+    expect(view(KITCHENER_CITY_HALL, stay(MON, '10:00', 60)).dataChecked).toBe('Sep 2026');
+  });
+
   it('returns empty results away from any city parking, still with both cities’ street rules', () => {
     const result = view({ lat: 43.38, lng: -80.6 }, stay(MON, '10:00', 60));
     expect(result.results).toEqual([]);

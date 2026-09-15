@@ -62,6 +62,22 @@ This must always be shown as *"typical rule — check posted signs"*, never as f
   - They are kept with `rulesStatus: 'unverified'` and price `unknown`, and must not rank as confirmed free parking until there is street-specific evidence.
 - **Waterloo 2-hour-free lots allow longer stays** through HonkMobile ($3.50/hour). The City doesn't say whether the first 2 hours are then charged, so the charge after 2 hours is recorded as unconfirmed (`amount: null`).
 - **Open hours stay unstated where the City contradicts itself** (M3). Charles & Benton, Duke & Ontario, Civic District and Lot 9 list hours that exclude days the City also calls free. Their hours are kept as notes, and the build fails if any rule starts outside stated open hours.
+- **M6 release preparation.**
+  - Version 1.0.0; name "Park Lens"; all rights reserved.
+  - **Panel:**
+    - loading and error states
+    - clearer no-results message
+    - "rates and rules checked" date
+    - non-affiliation disclaimer
+    - short screen-reader announcements instead of a live results list
+  - `REPORT_PROBLEM_URL` (`src/shared/links.ts`) is unset; the report link stays hidden until it's set.
+  - **Privacy policy** covers the locally stored stay length and outbound links.
+  - **Scripts:**
+    - `npm run release:check`: report URL, source checks ≤ 90 days, valid version
+    - `npm run package`: release zip
+    - `npm run store:assets`: 1280×800 screenshots and the 440×280 promo tile from the preview page
+  - Store listing draft: `docs/store/listing.md`. Release steps and manual Chrome test: `docs/RELEASE.md`.
+  - **Still to do by the owner:** set the report URL, publish the privacy policy at a public URL, and run the manual Chrome test.
 - **M5 street parking rules note** (`src/results/street-rules.ts`).
   - General rules per city, worded from each city's bylaw pages (checked 2026-09-14): the 3-hour limit, overnight 2:30–6 a.m. rules, snow events, and Kitchener's downtown 5-hour re-parking rule.
   - Shown below the results as a notice, never as a parking result. It leads with "This isn't a parking spot… always check the signs where you park."

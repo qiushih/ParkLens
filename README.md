@@ -1,8 +1,8 @@
-# ParkLens
+# Park Lens
 
 A Chrome extension that shows city parking near the place you're viewing in Google Maps, in a side panel. Coverage: **Kitchener and Waterloo, ON**.
 
-> **Status:** milestones M0–M4 are done: the scaffold, Google Maps destination detection, the parking data pipeline, nearby results, planning by stay length and arrival time with cost estimates, and a general street parking rules note. Web Store polish (M6) comes next. See [docs/PLAN.md](docs/PLAN.md).
+> **Status:** milestones M0–M6 are done: the scaffold, Google Maps destination detection, the parking data pipeline, nearby results, planning by stay length and arrival time with cost estimates, a general street parking rules note, and Web Store release preparation. Before submitting, see [docs/RELEASE.md](docs/RELEASE.md) for what's left. See [docs/PLAN.md](docs/PLAN.md).
 
 ## How it works
 
@@ -37,6 +37,9 @@ Then load the extension:
 | `npm run dev` | Development build with hot reload into `dist/` |
 | `npm run build` | Type-check and production build into `dist/` |
 | `npm run preview:panel` | Side panel on http://localhost:5174/preview/ with simulated Chrome tab APIs (not bundled into the extension) |
+| `npm run release:check` | Fails if the release isn't ready: report link unset, source checks over 90 days old, or invalid version |
+| `npm run package` | Release check, typecheck, lint, tests and build, then `release/park-lens-<version>.zip` |
+| `npm run store:assets` | Render store screenshots and the promo tile into `docs/store/` |
 | `npm run check` | Type-check, lint, and unit tests |
 | `npm test` | Unit tests (Vitest) |
 | `npm run icons` | Regenerate the PNG icons in `src/assets/icons/` |
@@ -61,6 +64,12 @@ To refresh:
 3. Review the diff and `data/REPORT.md`.
 
 Contains information licensed under the Open Government Licence - The Corporation of the City of Kitchener. Contains information provided by the City of Waterloo under licence.
+
+## Licence
+
+Copyright © 2026 Qiushi Huang. All rights reserved. This project is not open source.
+
+Park Lens is not affiliated with or endorsed by Google, the City of Kitchener or the City of Waterloo.
 
 ## Project layout
 

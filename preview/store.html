@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Park Lens store screenshot</title>
+    <link rel="stylesheet" href="/src/sidepanel/panel.css" />
+    <style>
+      /* 1280×800 Chrome Web Store screenshot layout, rendered by scripts/store-assets.mjs. */
+      :root {
+        color-scheme: light;
+      }
+      html,
+      body {
+        width: 1280px;
+        height: 800px;
+        margin: 0;
+        overflow: hidden;
+      }
+      body {
+        display: grid;
+        grid-template-columns: 1fr 420px;
+        gap: 56px;
+        align-items: center;
+        padding: 40px 72px;
+        box-sizing: border-box;
+        background: linear-gradient(135deg, #e6f4f1 0%, #f7faf9 60%);
+        color: #16201f;
+      }
+      .pitch {
+        display: grid;
+        gap: 20px;
+      }
+      .pitch__brand {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        font-size: 28px;
+        font-weight: 700;
+      }
+      #store-headline {
+        margin: 0;
+        font-size: 40px;
+        line-height: 1.15;
+      }
+      .pitch ul {
+        display: grid;
+        gap: 10px;
+        margin: 0;
+        padding-left: 22px;
+        font-size: 19px;
+        color: #2f3b3a;
+      }
+      .pitch__disclaimer {
+        font-size: 13px;
+        color: #5b6766;
+      }
+      .store-frame {
+        height: 720px;
+        overflow: auto;
+        border: 1px solid #dde3e2;
+        border-radius: 16px;
+        background: #ffffff;
+        box-shadow: 0 20px 50px rgb(15 118 110 / 18%);
+      }
+    </style>
+  </head>
+  <body>
+    <section class="pitch">
+      <div class="pitch__brand">
+        <img src="/src/assets/icons/icon-128.png" alt="" width="56" height="56" />
+        <span>Park Lens</span>
+      </div>
+      <h1 id="store-headline">City parking near your Google Maps destination</h1>
+      <ul>
+        <li>Walk time, price and time limits for your stay</li>
+        <li>Plan ahead by arrival time and stay length</li>
+        <li>City-run parking in Kitchener and Waterloo, ON</li>
+      </ul>
+      <p class="pitch__disclaimer">Not affiliated with or endorsed by Google, the City of Kitchener or the City of Waterloo.</p>
+    </section>
+
+    <div class="store-frame">
+      <header class="brand">
+        <img src="/src/assets/icons/icon-32.png" alt="" width="20" height="20" />
+        <span>Park Lens</span>
+      </header>
+      <main>
+        <div id="destination"></div>
+        <div id="controls" hidden></div>
+        <div id="app"><p class="muted">Loading…</p></div>
+        <p id="announce" class="visually-hidden" aria-live="polite"></p>
+      </main>
+    </div>
+
+    <script type="module" src="/preview/preview.ts"></script>
+  </body>
+</html>
